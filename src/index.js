@@ -22,7 +22,7 @@ var svg = d3.select("body")     //选择文档中的body元素
     .attr("width", width)       //设定宽度
     .attr("height", height);    //设定高度
 
-svg.selectAll("rect").data([20,30,40,50,60])
+/*svg.selectAll("rect").data([20,30,40,50,60])
     .enter()
     .append("rect")
     .attr("x",20)
@@ -33,5 +33,25 @@ svg.selectAll("rect").data([20,30,40,50,60])
         return d;
     })
     .attr("height",rectHeight-2)
+    .attr("fill","steelblue");*/
+
+var dataset = [1.2, 2.3, 0.9, 1.5, 3.3];
+var linear = d3.scale.linear()
+    .domain([0, d3.max(dataset)])
+    .range([0, 250]);
+svg.selectAll("rect")
+    .data(dataset)
+    .enter()
+    .append("rect")
+    .attr("x",20)
+    .attr("y",function(d,i){
+        return i * rectHeight;
+    })
+    .attr("width",function(d){
+        return linear(d);   //在这里用比例尺
+    })
+    .attr("height",rectHeight-2)
     .attr("fill","steelblue");
+
+
 
